@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+Results View Page
+{% endblock %}
+{% block content %}
+<style>
+    .listings{
+        display: flex;
+        align-items: center;
+        /* justify-content: center; */
+        flex-direction: column;
+    }
+    ul {
+        font-size: 2rem;   
+
+    }
+    a{
+        margin: 1rem;
+    }
+</style>
+<h1>{{ question.question_text }}</h1>
+<div class="listings">
+<ul class="list">
+   {% for choice in question.choice_set.all %}
+   <li>{{ choice.choice_text }}: 
+    <span> {{ choice.votes }}  vote{{ choice.votes | pluralize }} </span>
+   </li>
+   {% endfor %}    
+</ul>
+<a href="{% url 'polls:index' %}">Back to Polls</a>
+<a href="{% url 'polls:details' question.id %}">Vote again? </a>
+</div>
+{% endblock %}

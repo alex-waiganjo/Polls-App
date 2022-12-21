@@ -1,0 +1,21 @@
+{%  extends 'base.html' %}
+{% block title %}
+Polls App
+{% endblock %}
+{% block content %}
+<!-- <h1>Poll Questions  </h1> -->
+<div class="content">
+  {% if questions %}
+   {% for question in questions  %}
+     <p>Q{{ question.id}} :  {{  question.question_text}}</p>
+     <a href="{% url 'polls:details' question.id  %}">Vote</a><br>
+     <a href="{% url 'polls:results' question.id  %}">Results</a>
+   {% endfor %}  
+  {% else %}
+  <h2>Sorry No Polls Available</h2>
+  {% endif %} 
+  </div>
+{% endblock %}
+
+
+    

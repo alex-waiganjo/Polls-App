@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+Polls Carry Out Page 
+{% endblock %}
+ {% block content %}
+ <style>
+    .lister{
+        display: flex;
+        align-items: center;
+        /* justify-content: center; */
+        flex-direction: column;
+    }
+    label {
+        font-size: 2rem; 
+
+    }
+    #submit-form{
+     background-color: rgb(0, 183, 255);
+     font-size: 2rem;
+     padding: .5rem 2rem;
+     border-radius: 4px;
+     margin:1rem;
+    }
+ </style>
+<div class="lister">
+<h1>Q{{ question.id}} : {{question.question_text}}</h1>
+{% if error_message %}
+<h2>{{error_message }}</h2>
+{% endif %}
+<form action="{% url 'polls:vote' question.id %}" method="POST">
+  {% csrf_token %} {% for choice in question.choice_set.all %}
+  <div class="form">
+    <input
+      type="radio"
+      name="choice"
+      id="choice{{ forloop.counter }}"
+      value="{{ choice.id }}"
+    />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+  </div>
+  {% endfor %}
+  <input type="submit"  id='submit-form' value="Vote" />
+
+</form>
+</div>
+
+{% endblock %}
